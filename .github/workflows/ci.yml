@@ -1,0 +1,27 @@
+# Code generated from the VEED OpenAPI spec. DO NOT EDIT.
+
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      # --ignore-scripts: nothing here needs one.
+      - run: npm install --ignore-scripts
+      - run: npm test

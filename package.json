@@ -1,0 +1,36 @@
+{
+  "name": "@veedstudio/sdk",
+  "version": "0.1.0",
+  "description": "Official TypeScript/Node SDK for the VEED API",
+  "license": "MIT",
+  "repository": "github:veedstudio/veed-sdk-typescript",
+  "type": "module",
+  "publishConfig": {
+    "access": "public",
+    "@veedstudio:registry": "https://registry.npmjs.org"
+  },
+  "main": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/src/index.d.ts",
+      "import": "./dist/src/index.js",
+      "default": "./dist/src/index.js"
+    }
+  },
+  "files": [
+    "dist/src",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "npm run build && node --test \"dist/test/*.test.js\""
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0"
+  }
+}
