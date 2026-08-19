@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   npm:
@@ -24,7 +25,8 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          # >= 24.5.0: trusted publishing needs npm >= 11.5.1, Node 22 ships 10.9.x.
+          node-version: '24'
           registry-url: https://registry.npmjs.org
       # Matching the manifest to the tag name proves nothing about the tree.
       - name: Check the tag is on main
@@ -48,7 +50,4 @@ jobs:
       # workspace with the publish below and could rewrite dist/.
       - run: npm install --ignore-scripts
       - run: npm run build
-      # No --provenance: it requires a public repository, and this one is internal.
       - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

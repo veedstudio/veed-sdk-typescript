@@ -11,7 +11,7 @@ import {
   errorFromResponse,
 } from "./error.js";
 
-export const VERSION = "0.1.0";
+export const VERSION = "0.1.1";
 export const DEFAULT_BASE_URL = "https://api.veed.io";
 export const DEFAULT_WAIT_TIMEOUT_MS = 900_000;
 

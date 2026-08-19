@@ -1,6 +1,6 @@
 {
   "name": "@veedstudio/sdk",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Official TypeScript/Node SDK for the VEED API",
   "license": "MIT",
   "repository": "github:veedstudio/veed-sdk-typescript",
