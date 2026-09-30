@@ -3,15 +3,29 @@
 import type { File, JobErrorDetail, JobStatus, RequestOptions, WaitOptions } from "../core.js";
 import { Transport, waitForJob } from "../core.js";
 
-import type { VideoBackgroundRemovalInput } from "./videoBackgroundRemoval.js";
 import type { VideoBackgroundRemovalJob } from "./videoBackgroundRemoval.js";
+/** Output encoding. vp9 (the default) yields a single webm video with an alpha channel; h264 yields two files (the RGB video and an alpha matte) and is recommended for better RGB quality. */
+export type VideoBackgroundRemovalFastOutputCodec = "vp9" | "h264";
+
+
+/** Inputs for a video-background-removal-fast job. */
+export interface VideoBackgroundRemovalFastInput {
+  /** Output encoding. vp9 (the default) yields a single webm video with an alpha channel; h264 yields two files (the RGB video and an alpha matte) and is recommended for better RGB quality. */
+  output_codec?: VideoBackgroundRemovalFastOutputCodec;
+  /** Improves the quality of the extracted subject's edges. */
+  refine_foreground_edges?: boolean;
+  /** Set to false when the subject is not a person. */
+  subject_is_person?: boolean;
+  /** URL of the source video to remove the background from. */
+  video_url: string;
+}
 
 /** Access to the video-background-removal-fast model. */
 export class VideoBackgroundRemovalFast {
   constructor(private readonly transport: Transport) {}
 
   /** Submit a video-background-removal-fast job; returns immediately with status PROCESSING. */
-  submit(input: VideoBackgroundRemovalInput, options?: RequestOptions): Promise<VideoBackgroundRemovalJob> {
+  submit(input: VideoBackgroundRemovalFastInput, options?: RequestOptions): Promise<VideoBackgroundRemovalJob> {
     return this.transport.request("POST", "/v1/video-background-removal-fast", input, options);
   }
 
@@ -30,7 +44,7 @@ export class VideoBackgroundRemovalFast {
   }
 
   /** Submit a video-background-removal-fast job and wait for the finished result. */
-  async generate(input: VideoBackgroundRemovalInput, options?: WaitOptions): Promise<VideoBackgroundRemovalJob> {
+  async generate(input: VideoBackgroundRemovalFastInput, options?: WaitOptions): Promise<VideoBackgroundRemovalJob> {
     const job = await this.submit(input, options);
     return this.wait(job.job_id, options);
   }

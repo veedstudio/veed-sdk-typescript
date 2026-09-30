@@ -2,6 +2,7 @@
 
 import type { ClientOptions } from "./core.js";
 import { Transport } from "./core.js";
+import { CleanAudio } from "./resources/cleanAudio.js";
 import { Fabric } from "./resources/fabric.js";
 import { Lipsync20 } from "./resources/lipsync20.js";
 import { VideoBackgroundRemoval } from "./resources/videoBackgroundRemoval.js";
@@ -18,6 +19,7 @@ export type {
 } from "./core.js";
 export { DEFAULT_BASE_URL, VERSION } from "./core.js";
 export * from "./error.js";
+export * from "./resources/cleanAudio.js";
 export * from "./resources/fabric.js";
 export * from "./resources/lipsync20.js";
 export * from "./resources/videoBackgroundRemoval.js";
@@ -30,6 +32,7 @@ export * from "./resources/videoBackgroundRemovalGreenScreen.js";
  *     const client = new Veed(); // reads VEED_API_KEY
  */
 export class Veed {
+  readonly cleanAudio: CleanAudio;
   readonly fabric: Fabric;
   readonly lipsync20: Lipsync20;
   readonly videoBackgroundRemoval: VideoBackgroundRemoval;
@@ -38,6 +41,7 @@ export class Veed {
 
   constructor(options: ClientOptions = {}) {
     const transport = new Transport(options);
+    this.cleanAudio = new CleanAudio(transport);
     this.fabric = new Fabric(transport);
     this.lipsync20 = new Lipsync20(transport);
     this.videoBackgroundRemoval = new VideoBackgroundRemoval(transport);
