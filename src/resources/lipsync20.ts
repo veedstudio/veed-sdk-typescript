@@ -12,6 +12,7 @@ export type Lipsync20JobErrorCode =
   | "transload_failed"
   | "generation_failed"
   | "timeout"
+  | "insufficient_credits"
   | (string & {});
 
 /** Inputs for a lipsync-2.0 job. */

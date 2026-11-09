@@ -15,6 +15,7 @@ export type CleanAudioJobErrorCode =
   | "transload_failed"
   | "generation_failed"
   | "timeout"
+  | "insufficient_credits"
   | (string & {});
 
 /** Inputs for a clean-audio job. */

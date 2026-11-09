@@ -15,6 +15,7 @@ export type FabricJobErrorCode =
   | "transload_failed"
   | "generation_failed"
   | "timeout"
+  | "insufficient_credits"
   | (string & {});
 
 /** Inputs for a fabric-1.0 job. */
